@@ -7,9 +7,9 @@ router.get("/api/contacts", (req: Request, res: Response): void => {
   db.select("*")
     .from("contacts")
     .then(contacts => {
-      res.status(200).send(contacts);
+      res.send(contacts);
     })
-    .catch(error => res.sendStatus(400).json(error.message));
+    .catch(error => res.status(400).json(error.message));
 });
 
 router.post("/api/contacts", (req: Request, res: Response): void => {
@@ -18,9 +18,9 @@ router.post("/api/contacts", (req: Request, res: Response): void => {
   db("contacts")
     .insert({ name, phonenumber, email })
     .then(() => {
-      res.sendStatus(200);
+      res.end();
     })
-    .catch(error => res.sendStatus(400).json(error.message));
+    .catch(error => res.status(400).json(error.message));
 });
 
 router.put("/api/contacts", (req: Request, res: Response): void => {
@@ -30,9 +30,9 @@ router.put("/api/contacts", (req: Request, res: Response): void => {
     .where({ id })
     .update({ name, phonenumber, email })
     .then(() => {
-      res.sendStatus(200);
+      res.end();
     })
-    .catch(error => res.sendStatus(400).json(error.message));
+    .catch(error => res.status(400).json(error.message));
 });
 
 router.delete("/api/contacts", (req: Request, res: Response): void => {
@@ -42,9 +42,9 @@ router.delete("/api/contacts", (req: Request, res: Response): void => {
     .where({ id })
     .del()
     .then(() => {
-      res.sendStatus(200);
+      res.end();
     })
-    .catch(error => res.sendStatus(400).json(error.message));
+    .catch(error => res.status(400).json(error.message));
 });
 
 export default router;
